@@ -1,6 +1,6 @@
 
 import express from 'express';
-import schema from "./Schema/index.mjs";
+// import schema from "./Schema/index.mjs";
 import mongoose from "./Database/index.mjs";
 import userRoutes from "./Routes/userRoutes.mjs"
 
@@ -16,9 +16,9 @@ app.use(express.json())
 const port = 3001;
 app.use("/api", userRoutes)
 
-app.use('/',(req,res,next) =>{
-  console.log("Request URL:",req.url, "method:", req.method);
-  next()
+app.use("/",(req, res, next) =>{
+  console.log("Request URL:",req.url, "method: ", req.method);
+  next();
 })
 
 
