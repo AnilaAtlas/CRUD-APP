@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import User from "../models/user.mjs";
+import jwt from "jsonwebtoken";
 
 const login = async (req, res) => {
   try {
@@ -30,9 +31,11 @@ const login = async (req, res) => {
 const createUser = async (req, res) => {
   try {
     const password = bcrypt.hashSync(req.body.password, 10);
-    const user = await User.create({ ...req.body, password });
+    const user = await User.create({...req.body,password});
+    var token = jwt.sign({ email: user.email }, process.env.JWT_SECRET_KEY);
     res.status(201).send({ status: 201, user });
   } catch (err) {
+    console.log(err);
     res.status(500).send({ error: err, status: 500 });
   }
 };
