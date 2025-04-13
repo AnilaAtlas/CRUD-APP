@@ -1,12 +1,14 @@
 import express from "express";
 const router = express.Router();
+import tokenVerification from "../middlewareFolder/tokenVerification.mjs";
 
-import {createUser, getAllUsers, updateUser, deleteUser, login} from "../Controller/userController.mjs";
+import {add_User, all_Users, edit_User, delete_User, userLogin, getLoggedInUser, admin} from "../Controller/userController.mjs";
 
-router.get("/user", getAllUsers);
-router.post("/user", createUser);
-router.put("/user/:id", updateUser);
-router.delete("/user/:id", deleteUser);
-router.post("/user/login", login);
-
+router.get("/user",all_Users);
+router.post("/user", add_User);
+router.put("/user/:userid", edit_User);
+router.delete("/user/:userid", delete_User);
+router.post("/user/login", userLogin);
+router.get("/user/me", tokenVerification, getLoggedInUser);
+router.get('/admin', tokenVerification, admin);
 export default router;

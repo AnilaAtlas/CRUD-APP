@@ -3,6 +3,7 @@ import express from 'express';
 // import schema from "./Schema/index.mjs";
 import mongoose from "./Database/index.mjs";
 import userRoutes from "./Routes/userRoutes.mjs"
+import cors from "cors";
 
 mongoose.connection.on("open",()=>{
   console.log("MongoDB connected");
@@ -12,6 +13,7 @@ mongoose.connection.on("error",()=>{
 })
 
 const app = express()
+app.use(cors());
 app.use(express.json())
 const port = 3001;
 app.use("/api", userRoutes)
